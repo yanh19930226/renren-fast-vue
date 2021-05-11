@@ -75,13 +75,14 @@
         prop="showStatus"
         header-align="center"
         align="center"
-        label="显示状态[0-不显示；1-显示]"
+        label="显示状态"
       >
         <template slot-scope="scope">
           <el-switch
             v-model="scope.row.showStatus"
             active-color="#13ce66"
             inactive-color="#ff4949"
+            @change="updateStatus(scope.row)"
           >
           </el-switch>
         </template>
@@ -246,6 +247,11 @@ export default {
         });
       });
     },
+    //改变状态
+    updateStatus(data)
+    {
+
+    }
   },
 };
 </script>
