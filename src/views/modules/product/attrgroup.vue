@@ -117,18 +117,18 @@
           @size-change="sizeChangeHandle"
           @current-change="currentChangeHandle"
           :current-page="pageIndex"
-          :page-sizes="[10, 20, 50, 100]"
+          :page-sizes="[2, 20, 50, 100]"
           :page-size="pageSize"
           :total="totalPage"
           layout="total, sizes, prev, pager, next, jumper"
         >
         </el-pagination>
         <!-- 弹窗, 新增 / 修改 -->
-        <!-- <add-or-update
+        <add-or-update
           v-if="addOrUpdateVisible"
           ref="addOrUpdate"
           @refreshDataList="getDataList"
-        ></add-or-update> -->
+        ></add-or-update>
       </div>
     </el-col>
   </el-row>
@@ -136,7 +136,7 @@
 
 <script>
 import Category from "../common/category";
-// import AddOrUpdate from "./attrgroup-add-or-update";
+import AddOrUpdate from "./attrgroup-add-or-update";
 export default {
   data() {
     return {
@@ -146,7 +146,7 @@ export default {
       catId: 0,
       dataList: [],
       pageIndex: 1,
-      pageSize: 10,
+      pageSize: 2,
       totalPage: 0,
       dataListLoading: false,
       dataListSelections: [],
@@ -154,7 +154,8 @@ export default {
     };
   },
   components: {
-    Category
+    Category,
+    AddOrUpdate
   },
   activated() {
     this.getDataList();
