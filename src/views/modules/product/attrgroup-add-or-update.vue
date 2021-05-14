@@ -25,7 +25,7 @@
         <el-input v-model="dataForm.icon" placeholder="组图标"></el-input>
       </el-form-item>
       <el-form-item label="所属分类" prop="catelogId">
-        <el-cascader  placeholder="试试搜索：手机" v-model="dataForm.catelogId" :options="categorys"  :props="props"></el-cascader>
+        <el-cascader filterable  placeholder="试试搜索：手机" v-model="dataForm.catelogIds" :options="categorys"  :props="props"></el-cascader>
         <!-- :catelogPath="catelogPath"自定义绑定的属性，可以给子组件传值 -->
       </el-form-item>
     </el-form>
@@ -54,6 +54,7 @@ export default {
         sort: "",
         descript: "",
         icon: "",
+        catelogIds:[],
         catelogId: 0
       },
       dataRule: {
@@ -73,6 +74,9 @@ export default {
   },
   // components:{CategoryCascader},
   methods: {
+    dialogClose(){
+      this.catelogPath = [];
+    },
     getCategorys(){
       this.$http({
         url: this.$http.adornUrl("/product/category/tree"),
@@ -99,9 +103,8 @@ export default {
               this.dataForm.sort = data.attrGroup.sort;
               this.dataForm.descript = data.attrGroup.descript;
               this.dataForm.icon = data.attrGroup.icon;
-              this.dataForm.catelogId = data.attrGroup.catelogId;
               //查出catelogId的完整路径
-              this.catelogPath =  data.attrGroup.catelogPath;
+              this.dataForm.catelogIds = data.attrGroup.catelogIds;
             }
           });
         }
@@ -124,7 +127,7 @@ export default {
               sort: this.dataForm.sort,
               descript: this.dataForm.descript,
               icon: this.dataForm.icon,
-              catelogId: this.catelogPath[this.catelogPath.length-1]
+              catelogId: this.dataForm.catelogIds[this.dataForm.catelogIds.length-1]
             })
           }).then(({ data }) => {
             if (data && data.code === 0) {

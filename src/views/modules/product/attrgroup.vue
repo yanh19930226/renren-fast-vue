@@ -98,6 +98,7 @@
             label="操作"
           >
             <template slot-scope="scope">
+               <el-button type="text" size="small" @click="relationHandle(scope.row.attrGroupId)">关联</el-button>
               <el-button
                 type="text"
                 size="small"
@@ -129,6 +130,9 @@
           ref="addOrUpdate"
           @refreshDataList="getDataList"
         ></add-or-update>
+
+        <!-- 修改关联关系 -->
+        <relation-update v-if="relationVisible" ref="relationUpdate" @refreshData="getDataList"></relation-update>
       </div>
     </el-col>
   </el-row>
@@ -137,6 +141,7 @@
 <script>
 import Category from "../common/category";
 import AddOrUpdate from "./attrgroup-add-or-update";
+import RelationUpdate from "./attr-group-relation";
 export default {
   data() {
     return {
@@ -151,16 +156,25 @@ export default {
       dataListLoading: false,
       dataListSelections: [],
       addOrUpdateVisible: false,
+      relationVisible: false
     };
   },
   components: {
     Category,
-    AddOrUpdate
+    AddOrUpdate,
+    RelationUpdate
   },
   activated() {
     this.getDataList();
   },
   methods: {
+    //处理分组与属性的关联
+    relationHandle(groupId) {
+      this.relationVisible = true;
+      this.$nextTick(() => {
+        this.$refs.relationUpdate.init(groupId);
+      });
+    },
     //感知树节点被点击
     treenodeclick(data, node, component) {
       if (node.level === 3) {
