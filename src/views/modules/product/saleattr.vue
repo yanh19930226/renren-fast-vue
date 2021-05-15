@@ -128,13 +128,7 @@
             align="center"
             label="所属分类"
           ></el-table-column>
-          <el-table-column
-            v-if="attrtype == 1"
-            prop="groupName"
-            header-align="center"
-            align="center"
-            label="所属分组"
-          ></el-table-column>
+         </el-table-column>
           <el-table-column
             v-if="attrtype == 1"
             prop="showDesc"
@@ -207,7 +201,7 @@ export default {
   data() {
     return {
       catId: 0,
-      type: 1,
+      type: 0,
       dataForm: {
         key: "",
       },
