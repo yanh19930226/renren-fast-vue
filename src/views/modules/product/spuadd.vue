@@ -666,6 +666,7 @@ export default {
     },
     showBaseAttrs() {
       if (!this.dataResp.steped[0]) {
+        console.log(this.spu.catalogId);
         this.$http({
           url: this.$http.adornUrl(
             `/product/attrgroup/${this.spu.catalogId}/withattr`
@@ -673,9 +674,11 @@ export default {
           method: "get",
           params: this.$http.adornParams({})
         }).then(({ data }) => {
+         console.log(data);
           //先对表单的baseAttrs进行初始化
           data.data.forEach(item => {
             let attrArray = [];
+             console.log(item);
             item.attrs.forEach(attr => {
               attrArray.push({
                 attrId: attr.attrId,
